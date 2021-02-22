@@ -1,0 +1,35 @@
+{
+  "name": "animaaals",
+  "version": "0.0.6",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "start": "ts-node index.ts",
+    "build": "tsc && copyfiles -f src/svg/*.svg dist/svg",
+    "copy": "copyfiles -f src/svg/*.svg dist/svg"
+  },
+  "keywords": [],
+  "author": "Martijn Michel",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chance": "^1.1.1",
+    "@types/node": "^14.14.31",
+    "nodemon": "^2.0.7",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.5"
+  },
+  "dependencies": {
+    "chance": "^1.1.7",
+    "copyfiles": "^2.4.1",
+    "randomcolor": "^0.6.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martijnmichel/animaals.git"
+  },
+  "bugs": {
+    "url": "https://github.com/martijnmichel/animaals/issues"
+  },
+  "homepage": "https://github.com/martijnmichel/animaals#readme",
+  "description": ""
+}
