@@ -5,8 +5,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "start": "ts-node index.ts",
-    "build": "tsc && copyfiles -f src/svg/*.svg dist/svg",
-    "copy": "copyfiles -f src/svg/*.svg dist/svg"
+    "build": "tsc && copyfiles -f src/svg/*.svg dist/svg"
   },
   "keywords": [],
   "author": "Martijn Michel",
