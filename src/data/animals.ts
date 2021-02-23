@@ -1,1 +1,1 @@
-export default ['pig', 'owl', 'frog', 'chicken', 'owl', 'monkey']
+export default ['pig', 'owl', 'frog', 'chicken', 'owl', 'monkey', 'cow', 'koala', 'pinguin', 'horse', 'fox', 'bear', 'cat']

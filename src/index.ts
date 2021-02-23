@@ -13,8 +13,6 @@ export default class Animal {
     doc = {} as Document;
 
     constructor(options: Options) {
-        console.log(options);
-
         if (options) this.options = Object.assign({}, this.options, options);
     }
 
@@ -48,7 +46,7 @@ export default class Animal {
     }
 
     pickAnimal(uri: string[]) {
-        const segment1 = uri.slice(0, 20).join();
+        const segment1 = uri.slice(0, 40).join();
         const chance1 = new Chance(segment1);
         return chance1.shuffle(this.options.animals)[0];
     }
@@ -61,7 +59,6 @@ export default class Animal {
     styleBody(uri: string[]) {
         const segment1 = uri.slice(2, 12).join();
         const chance1 = new Chance(segment1);
-        console.log(this.options);
         let bodyColor = chance1.shuffle(colors[this.options.theme])[0];
         const body: SVGElement | null = this.doc.querySelector(
             `#${this.animal} #body #outer`

@@ -14,7 +14,6 @@ class Animal {
         };
         this.animal = "pig";
         this.doc = {};
-        console.log(options);
         if (options)
             this.options = Object.assign({}, this.options, options);
     }
@@ -43,7 +42,7 @@ class Animal {
         return doc;
     }
     pickAnimal(uri) {
-        const segment1 = uri.slice(0, 20).join();
+        const segment1 = uri.slice(0, 40).join();
         const chance1 = new chance_1.default(segment1);
         return chance1.shuffle(this.options.animals)[0];
     }
@@ -55,7 +54,6 @@ class Animal {
     styleBody(uri) {
         const segment1 = uri.slice(2, 12).join();
         const chance1 = new chance_1.default(segment1);
-        console.log(this.options);
         let bodyColor = chance1.shuffle(colors_1.default[this.options.theme])[0];
         const body = this.doc.querySelector(`#${this.animal} #body #outer`);
         if (body)
