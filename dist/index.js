@@ -10,7 +10,8 @@ const animals_1 = __importDefault(require("./data/animals"));
 class Animal {
     constructor(options) {
         this.options = {
-            theme: 'default'
+            theme: 'default',
+            animals: animals_1.default
         };
         this.animal = 'mouse';
         this.doc = this.svg();
@@ -22,11 +23,9 @@ class Animal {
         const base = 'sonidissoawesomeyoucantevenimaginehowcoolitis';
         // create bugger
         let uri = Buffer.from(seed + base || base, 'utf8').toString('hex').split('');
-        console.log(uri);
         this.pickAnimal(uri);
         // colorize body
         this.styleBody(uri);
-        console.log(this.doc);
         var s = new XMLSerializer().serializeToString(this.doc);
         return "data:image/svg+xml;base64," + btoa(s);
     }
@@ -42,17 +41,23 @@ class Animal {
             if (el)
                 el.style.display = 'none';
         });
-        const segment1 = uri.slice(0, 10).join();
+        const segment1 = uri.slice(0, 20).join();
         const chance1 = new chance_1.default(segment1);
-        this.animal = chance1.shuffle(animals_1.default)[0];
+        this.animal = chance1.shuffle(this.options.animals)[0];
         const el = this.doc.getElementById(this.animal);
         if (el)
             el.style.display = 'block';
     }
+    /**
+     * Colorize body by seed or color value
+     * @param uri string seed to chance on
+     * @param color hex value color
+     */
     styleBody(uri) {
         const segment1 = uri.slice(2, 12).join();
         const chance1 = new chance_1.default(segment1);
-        const bodyColor = chance1.shuffle(colors_1.default[this.options.theme])[0];
+        console.log(this.options);
+        let bodyColor = chance1.shuffle(colors_1.default[this.options.theme])[0];
         const body = this.doc.querySelector(`#${this.animal} #body #outer`);
         if (body)
             body.style.fill = bodyColor;

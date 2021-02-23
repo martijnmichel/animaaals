@@ -1,1 +1,1 @@
-export default ['mouse', 'monkey']
+export default ['mouse', 'monkey', 'frog', 'chicken', 'pig', 'owl']

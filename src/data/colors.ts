@@ -16,6 +16,6 @@ let colors: Map = {
 
 export default colors
 
-interface Map {
+export interface Map {
     [key: string]: string[]
 }
