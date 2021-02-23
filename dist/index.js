@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const animals_svg_1 = __importDefault(require("./svg/animals.svg"));
+const load_svg_file_1 = __importDefault(require("load-svg-file"));
 const chance_1 = __importDefault(require("chance"));
 const colors_1 = __importDefault(require("./data/colors"));
 const animals_1 = __importDefault(require("./data/animals"));
@@ -30,8 +30,8 @@ class Animal {
         return "data:image/svg+xml;base64," + btoa(s);
     }
     svg() {
-        console.log(animals_svg_1.default);
-        const xml = atob(animals_svg_1.default.replace(/^.+base64,/, "").replace(/\"?\)$/, ""));
+        const svg = load_svg_file_1.default('./svg/animals.svg');
+        const xml = atob(svg.replace(/^.+base64,/, "").replace(/\"?\)$/, ""));
         let parser = new DOMParser();
         const doc = parser.parseFromString(xml, "application/xml");
         return doc;

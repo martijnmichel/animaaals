@@ -1,5 +1,6 @@
 import svg from './svg/animals.svg'
 
+
 import Chance from 'chance'
 import colors from './data/colors'
 import animals from './data/animals'
