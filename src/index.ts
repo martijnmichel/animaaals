@@ -1,7 +1,7 @@
 import svg from './svg/animals.svg'
 
 import Chance from 'chance'
-import colors, { Map } from './data/colors'
+import colors from './data/colors'
 import animals from './data/animals'
 
 
@@ -35,6 +35,7 @@ export default class Animal {
         this.styleBody(uri)
 
 
+
         var s = new XMLSerializer().serializeToString(this.doc)
 
         return "data:image/svg+xml;base64," + btoa(s)
@@ -43,6 +44,8 @@ export default class Animal {
 
 
     svg() {
+
+        console.log(svg)
         const xml = atob(svg.replace(/^.+base64,/, "").replace(/\"?\)$/, ""))
         let parser = new DOMParser()
         const doc = parser.parseFromString(xml, "application/xml")

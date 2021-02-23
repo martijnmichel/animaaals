@@ -1,6 +1,6 @@
 {
   "name": "animaaals",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -14,14 +14,12 @@
   "devDependencies": {
     "@types/chance": "^1.1.1",
     "@types/node": "^14.14.31",
-    "nodemon": "^2.0.7",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.5"
   },
   "dependencies": {
     "chance": "^1.1.7",
-    "copyfiles": "^2.4.1",
-    "randomcolor": "^0.6.2"
+    "copyfiles": "^2.4.1"
   },
   "repository": {
     "type": "git",

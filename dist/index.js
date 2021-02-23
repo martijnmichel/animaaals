@@ -30,9 +30,7 @@ class Animal {
         return "data:image/svg+xml;base64," + btoa(s);
     }
     svg() {
-        const xml = atob(animals_svg_1.default.replace(/^.+base64,/, "").replace(/\"?\)$/, ""));
-        let parser = new DOMParser();
-        const doc = parser.parseFromString(xml, "application/xml");
+        console.log(animals_svg_1.default);
         return doc;
     }
     pickAnimal(uri) {

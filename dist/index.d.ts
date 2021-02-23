@@ -4,10 +4,10 @@ export default class Animal {
         animals: string[];
     };
     animal: string;
-    doc: Document;
+    doc: any;
     constructor(options: Options);
     create(seed?: string): string;
-    svg(): Document;
+    svg(): any;
     pickAnimal(uri: string[]): void;
     /**
      * Colorize body by seed or color value
