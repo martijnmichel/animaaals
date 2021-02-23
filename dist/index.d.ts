@@ -8,7 +8,7 @@ export default class Animal {
     constructor(options: Options);
     create(seed?: string): string;
     svg(): Document;
-    pickAnimal(uri: string[]): void;
+    pickAnimal(uri: string[]): string;
     /**
      * Colorize body by seed or color value
      * @param uri string seed to chance on
@@ -18,5 +18,5 @@ export default class Animal {
 }
 export interface Options {
     theme?: string;
-    animals: string[];
+    animals?: string[];
 }

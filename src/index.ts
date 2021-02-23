@@ -1,71 +1,56 @@
-import svg from './svg/animals.svg'
-
-
-import Chance from 'chance'
-import colors from './data/colors'
-import animals from './data/animals'
-
+import Chance from "chance";
+import colors from "./data/colors";
+import animals from "./data/animals";
 
 export default class Animal {
-
     options = {
-        theme: 'default',
-        animals
-    }
+        theme: "default",
+        animals,
+    };
 
-    animal = 'mouse'
+    animal = "pig";
 
-    doc = this.svg()
+    doc = {} as Document;
 
     constructor(options: Options) {
+        console.log(options);
 
-        console.log(options)
-
-        if (options) this.options = Object.assign({}, this.options, options)
+        if (options) this.options = Object.assign({}, this.options, options);
     }
 
     create(seed?: string) {
-        const base = 'sonidissoawesomeyoucantevenimaginehowcoolitis'
-        // create bugger
-        let uri = Buffer.from(seed + base || base, 'utf8').toString('hex').split('')
+        const base = "sonidissoawesomeyoucantevenimaginehowcoolitis";
+        // create buffer from seed
+        let uri = Buffer.from(seed + base || base, "utf8")
+            .toString("hex")
+            .split("");
 
-
-
-        this.pickAnimal(uri)
+        // pick animal based on uri
+        this.animal = this.pickAnimal(uri);
+        // import correct svg and parse as doc
+        this.doc = this.svg();
+        // theme the svg
         // colorize body
-        this.styleBody(uri)
+        this.styleBody(uri);
 
-
-
-        var s = new XMLSerializer().serializeToString(this.doc)
-
-        return "data:image/svg+xml;base64," + btoa(s)
+        // turn into base64 data and return
+        var s = new XMLSerializer().serializeToString(this.doc);
+        return "data:image/svg+xml;base64," + btoa(s);
     }
 
-
-
     svg() {
-
-        console.log(svg)
-        const xml = atob(svg.replace(/^.+base64,/, "").replace(/\"?\)$/, ""))
-        let parser = new DOMParser()
-        const doc = parser.parseFromString(xml, "application/xml")
+        const svg = require(`./svg/${this.animal}.svg`);
+        const xml = atob(svg.replace(/^.+base64,/, "").replace(/\"?\)$/, ""));
+        let parser = new DOMParser();
+        const doc = parser.parseFromString(xml, "application/xml");
 
         return doc;
     }
 
     pickAnimal(uri: string[]) {
-
-        animals.forEach(a => {
-            const el = this.doc.getElementById(a)
-            if (el) el.style.display = 'none'
-        })
-
-        const segment1 = uri.slice(0, 20).join()
-        const chance1 = new Chance(segment1)
-        this.animal = chance1.shuffle(this.options.animals)[0]
-        const el = this.doc.getElementById(this.animal)
-        if (el) el.style.display = 'block'
+        const segment1 = uri.slice(0, 20).join();
+        const chance1 = new Chance(segment1);
+        return chance1.shuffle(this.options.animals)[0];
     }
 
     /**
@@ -74,23 +59,26 @@ export default class Animal {
      * @param color hex value color
      */
     styleBody(uri: string[]) {
-        const segment1 = uri.slice(2, 12).join()
-        const chance1 = new Chance(segment1)
-        console.log(this.options)
-        let bodyColor = chance1.shuffle(colors[this.options.theme])[0]
-        const body: SVGElement | null = this.doc.querySelector(`#${this.animal} #body #outer`)
-        if (body) body.style.fill = bodyColor
-        const earL: SVGElement | null = this.doc.querySelector(`#${this.animal} #ears #outerL`)
-        if (earL) earL.style.fill = bodyColor
-        const earR: SVGElement | null = this.doc.querySelector(`#${this.animal} #ears #outerR`)
-        if (earR) earR.style.fill = bodyColor
+        const segment1 = uri.slice(2, 12).join();
+        const chance1 = new Chance(segment1);
+        console.log(this.options);
+        let bodyColor = chance1.shuffle(colors[this.options.theme])[0];
+        const body: SVGElement | null = this.doc.querySelector(
+            `#${this.animal} #body #outer`
+        );
+        if (body) body.style.fill = bodyColor;
+        const earL: SVGElement | null = this.doc.querySelector(
+            `#${this.animal} #ears #outerL`
+        );
+        if (earL) earL.style.fill = bodyColor;
+        const earR: SVGElement | null = this.doc.querySelector(
+            `#${this.animal} #ears #outerR`
+        );
+        if (earR) earR.style.fill = bodyColor;
     }
-
-
 }
-
 
 export interface Options {
     theme?: string;
-    animals: string[]
+    animals?: string[];
 }
