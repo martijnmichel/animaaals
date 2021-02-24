@@ -5,7 +5,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "start": "ts-node index.ts",
-    "build": "tsc && copyfiles -f src/svg/*.svg dist/svg",
+    "build": "tsc",
+    "copy": "copyfiles -f src/svg/*.svg dist/svg",
     "deploy": "npm publish"
   },
   "keywords": [],

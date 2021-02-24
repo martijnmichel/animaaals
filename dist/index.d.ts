@@ -8,6 +8,7 @@ export default class Animal {
     constructor(options: Options);
     create(seed?: string): string;
     svg(): Document;
+    svgEl(base: string): Document;
     pickAnimal(uri: string[]): string;
     /**
      * Colorize body by seed or color value

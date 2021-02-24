@@ -50,6 +50,13 @@ export default class Animal {
         return doc;
     }
 
+    svgEl(base: string) {
+        const xml = atob(base.replace(/^.+base64,/, "").replace(/\"?\)$/, ""));
+        let parser = new DOMParser();
+        const doc = parser.parseFromString(xml, "application/xml");
+        return doc
+    }
+
     pickAnimal(uri: string[]) {
         const segment1 = uri.slice(0, 40).join();
         const chance1 = new Chance(segment1);
@@ -83,11 +90,18 @@ export default class Animal {
         const segment1 = uri.slice(10, 30).join();
         const integer = new Chance(segment1).bool({ likelihood: 50 })
 
-        const glassesEl: SVGElement | null = this.doc.querySelector(
-            `#hair`
-        );
-        if (integer && glassesEl) glassesEl.style.display = 'block'
-        else if (glassesEl) glassesEl.style.display = 'none'
+        console.log(this.doc)
+
+
+
+        const hair = require(`./svg/hair/${this.animal}.svg`);
+        const hairEl = this.svgEl(hair).querySelector('#hair')
+
+        console.log(this.doc)
+
+        if (integer && hairEl) {
+            this.doc.appendChild(hairEl)
+        }
     }
 
     styleAttributes(uri: string[]) {
