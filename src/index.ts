@@ -16,7 +16,7 @@ export default class Animal {
         if (options) this.options = Object.assign({}, this.options, options);
     }
 
-    async create(seed?: string) {
+    create(seed?: string) {
         const base = "sonidissoawesomeyoucantevenimaginehowcoolitis";
         // create buffer from seed
         let uri = Buffer.from(seed + base || base, "utf8")
@@ -26,9 +26,8 @@ export default class Animal {
         // pick animal based on uri
         this.animal = this.pickAnimal(uri);
         // import correct svg and parse as doc
-        this.doc = await this.svg();
+        this.doc = this.svg();
 
-        console.log(this.doc)
         // theme the svg
         // colorize body
         this.styleBody(uri);
@@ -42,10 +41,9 @@ export default class Animal {
         return "data:image/svg+xml;base64," + btoa(s);
     }
 
-    async svg() {
-        const svg = await import(`./svg/${this.animal}.svg`)
-        console.log(svg.default)
-        const xml = atob(svg.default.replace(/^.+base64,/, "").replace(/\"?\)$/, ""));
+    svg() {
+        const svg = require(`./svg/${this.animal}.svg`)
+        const xml = atob(svg.replace(/^.+base64,/, "").replace(/\"?\)$/, ""));
         let parser = new DOMParser();
         const doc = parser.parseFromString(xml, "application/xml");
 
