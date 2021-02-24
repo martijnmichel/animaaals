@@ -6,8 +6,8 @@ export default class Animal {
     animal: string;
     doc: Document;
     constructor(options: Options);
-    create(seed?: string): string;
-    svg(): Document;
+    create(seed?: string): Promise<string>;
+    svg(): Promise<Document>;
     pickAnimal(uri: string[]): string;
     /**
      * Colorize body by seed or color value
@@ -15,6 +15,7 @@ export default class Animal {
      * @param color hex value color
      */
     styleBody(uri: string[]): void;
+    styleHair(uri: string[]): void;
     styleAttributes(uri: string[]): void;
 }
 export interface Options {

@@ -16,7 +16,7 @@ export default class Animal {
         if (options) this.options = Object.assign({}, this.options, options);
     }
 
-    create(seed?: string) {
+    async create(seed?: string) {
         const base = "sonidissoawesomeyoucantevenimaginehowcoolitis";
         // create buffer from seed
         let uri = Buffer.from(seed + base || base, "utf8")
@@ -26,21 +26,26 @@ export default class Animal {
         // pick animal based on uri
         this.animal = this.pickAnimal(uri);
         // import correct svg and parse as doc
-        this.doc = this.svg();
+        this.doc = await this.svg();
+
+        console.log(this.doc)
         // theme the svg
         // colorize body
         this.styleBody(uri);
         // set attributes
         this.styleAttributes(uri)
 
+        this.styleHair(uri)
+
         // turn into base64 data and return
         var s = new XMLSerializer().serializeToString(this.doc);
         return "data:image/svg+xml;base64," + btoa(s);
     }
 
-    svg() {
-        const svg = require(`./svg/${this.animal}.svg`);
-        const xml = atob(svg.replace(/^.+base64,/, "").replace(/\"?\)$/, ""));
+    async svg() {
+        const svg = await import(`./svg/${this.animal}.svg`)
+        console.log(svg.default)
+        const xml = atob(svg.default.replace(/^.+base64,/, "").replace(/\"?\)$/, ""));
         let parser = new DOMParser();
         const doc = parser.parseFromString(xml, "application/xml");
 
@@ -74,6 +79,17 @@ export default class Animal {
             `#ears #outerR`
         );
         if (earR) earR.style.fill = bodyColor;
+    }
+
+    styleHair(uri: string[]) {
+        const segment1 = uri.slice(10, 30).join();
+        const integer = new Chance(segment1).bool({ likelihood: 50 })
+
+        const glassesEl: SVGElement | null = this.doc.querySelector(
+            `#hair`
+        );
+        if (integer && glassesEl) glassesEl.style.display = 'block'
+        else if (glassesEl) glassesEl.style.display = 'none'
     }
 
     styleAttributes(uri: string[]) {
