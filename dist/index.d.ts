@@ -15,6 +15,7 @@ export default class Animal {
      * @param color hex value color
      */
     styleBody(uri: string[]): void;
+    styleAttributes(uri: string[]): void;
 }
 export interface Options {
     theme?: string;

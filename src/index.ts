@@ -30,6 +30,8 @@ export default class Animal {
         // theme the svg
         // colorize body
         this.styleBody(uri);
+        // set attributes
+        this.styleAttributes(uri)
 
         // turn into base64 data and return
         var s = new XMLSerializer().serializeToString(this.doc);
@@ -61,18 +63,35 @@ export default class Animal {
         const chance1 = new Chance(segment1);
         let bodyColor = chance1.shuffle(colors[this.options.theme])[0];
         const body: SVGElement | null = this.doc.querySelector(
-            `#${this.animal} #body #outer`
+            `#body #outer`
         );
         if (body) body.style.fill = bodyColor;
         const earL: SVGElement | null = this.doc.querySelector(
-            `#${this.animal} #ears #outerL`
+            `#ears #outerL`
         );
         if (earL) earL.style.fill = bodyColor;
         const earR: SVGElement | null = this.doc.querySelector(
-            `#${this.animal} #ears #outerR`
+            `#ears #outerR`
         );
         if (earR) earR.style.fill = bodyColor;
     }
+
+    styleAttributes(uri: string[]) {
+        // pick glasses
+        const segment1 = uri.slice(5, 25).join();
+        const integer = new Chance(segment1).bool({ likelihood: 20 })
+
+        const glassesEl: SVGElement | null = this.doc.querySelector(
+            `#attributes #sunglasses`
+        );
+        if (integer && glassesEl) glassesEl.style.display = 'block'
+        else if (glassesEl) glassesEl.style.display = 'none'
+
+
+        const segment2 = uri.slice(15, 35).join();
+        const chance2 = new Chance(segment1);
+    }
+
 }
 
 export interface Options {

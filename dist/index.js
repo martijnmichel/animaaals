@@ -30,6 +30,8 @@ class Animal {
         // theme the svg
         // colorize body
         this.styleBody(uri);
+        // set attributes
+        this.styleAttributes(uri);
         // turn into base64 data and return
         var s = new XMLSerializer().serializeToString(this.doc);
         return "data:image/svg+xml;base64," + btoa(s);
@@ -55,15 +57,28 @@ class Animal {
         const segment1 = uri.slice(2, 12).join();
         const chance1 = new chance_1.default(segment1);
         let bodyColor = chance1.shuffle(colors_1.default[this.options.theme])[0];
-        const body = this.doc.querySelector(`#${this.animal} #body #outer`);
+        const body = this.doc.querySelector(`#body #outer`);
         if (body)
             body.style.fill = bodyColor;
-        const earL = this.doc.querySelector(`#${this.animal} #ears #outerL`);
+        const earL = this.doc.querySelector(`#ears #outerL`);
         if (earL)
             earL.style.fill = bodyColor;
-        const earR = this.doc.querySelector(`#${this.animal} #ears #outerR`);
+        const earR = this.doc.querySelector(`#ears #outerR`);
         if (earR)
             earR.style.fill = bodyColor;
+    }
+    styleAttributes(uri) {
+        // pick glasses
+        const segment1 = uri.slice(5, 25).join();
+        const integer = new chance_1.default(segment1).bool({ likelihood: 20 });
+        const glassesEl = this.doc.querySelector(`#attributes #sunglasses`);
+        console.log(glassesEl);
+        if (integer && glassesEl)
+            glassesEl.style.display = 'block';
+        else if (glassesEl)
+            glassesEl.style.display = 'none';
+        const segment2 = uri.slice(15, 35).join();
+        const chance2 = new chance_1.default(segment1);
     }
 }
 exports.default = Animal;
