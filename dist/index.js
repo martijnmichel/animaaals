@@ -31,7 +31,7 @@ class Animal {
         // colorize body
         this.styleBody(uri);
         // set attributes
-        this.styleAttributes(uri);
+        this.pickGlasses(uri);
         this.styleHair(uri);
         // turn into base64 data and return
         var s = new XMLSerializer().serializeToString(this.doc);
@@ -77,25 +77,22 @@ class Animal {
     styleHair(uri) {
         const segment1 = uri.slice(10, 30).join();
         const integer = new chance_1.default(segment1).bool({ likelihood: 50 });
-        console.log(this.doc);
         const hair = require(`./svg/hair/${this.animal}.svg`);
         const hairEl = this.svgEl(hair).querySelector('#hair');
-        console.log(this.doc);
-        if (integer && hairEl) {
-            this.doc.appendChild(hairEl);
+        const mainEl = this.doc.getElementById('main');
+        if (integer && mainEl && hairEl) {
+            mainEl.appendChild(hairEl);
         }
     }
-    styleAttributes(uri) {
-        // pick glasses
+    pickGlasses(uri) {
         const segment1 = uri.slice(5, 25).join();
-        const integer = new chance_1.default(segment1).bool({ likelihood: 20 });
-        const glassesEl = this.doc.querySelector(`#attributes #sunglasses`);
-        if (integer && glassesEl)
-            glassesEl.style.display = 'block';
-        else if (glassesEl)
-            glassesEl.style.display = 'none';
-        const segment2 = uri.slice(15, 35).join();
-        const chance2 = new chance_1.default(segment1);
+        const integer = new chance_1.default(segment1).bool({ likelihood: 50 });
+        const hair = require(`./svg/sunglasses/${this.animal}.svg`);
+        const hairEl = this.svgEl(hair).querySelector('#sunglasses');
+        const mainEl = this.doc.getElementById('main');
+        if (integer && mainEl && hairEl) {
+            mainEl.appendChild(hairEl);
+        }
     }
 }
 exports.default = Animal;

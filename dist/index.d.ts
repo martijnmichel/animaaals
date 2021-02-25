@@ -17,7 +17,7 @@ export default class Animal {
      */
     styleBody(uri: string[]): void;
     styleHair(uri: string[]): void;
-    styleAttributes(uri: string[]): void;
+    pickGlasses(uri: string[]): void;
 }
 export interface Options {
     theme?: string;
