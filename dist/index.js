@@ -78,8 +78,9 @@ class Animal {
         const segment1 = uri.slice(10, 30).join();
         const integer = new chance_1.default(segment1).bool({ likelihood: 50 });
         const hair = require(`./svg/hair/${this.animal}.svg`);
-        const hairEl = this.svgEl(hair).querySelector('#hair');
-        const mainEl = this.doc.getElementById('main');
+        const hairEl = this.svgEl(hair).querySelector("#hair");
+        //if (hairEl) hairEl.style.fill = "#000";
+        const mainEl = this.doc.getElementById("main");
         if (integer && mainEl && hairEl) {
             mainEl.appendChild(hairEl);
         }
@@ -88,8 +89,8 @@ class Animal {
         const segment1 = uri.slice(5, 25).join();
         const integer = new chance_1.default(segment1).bool({ likelihood: 50 });
         const hair = require(`./svg/sunglasses/${this.animal}.svg`);
-        const hairEl = this.svgEl(hair).querySelector('#sunglasses');
-        const mainEl = this.doc.getElementById('main');
+        const hairEl = this.svgEl(hair).querySelector("#sunglasses");
+        const mainEl = this.doc.getElementById("main");
         if (integer && mainEl && hairEl) {
             mainEl.appendChild(hairEl);
         }
